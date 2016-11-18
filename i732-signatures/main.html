@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+    <title>I-732 Signature Checker</title>
+  </head>
+  <body>
+    <body>
+      <p><strong>Enter Signer Information:</strong> <a href="/static/instructions.html" target="_blank">(Instructions)</a></p>
+</ br><form action="/results" method="post">
+        <div>First Name: <input type="text" name="fname" style="border: 1px solid black" value="{{fname}}"></div>
+        <div>Last Name: <input type="text" name="lname" style="border: 1px solid black" value="{{lname}}"></div>
+        <div>City: <input type="text" name="city" style="border: 1px solid black" value="{{city}}"></div>
+        <div>County: <input type="text" name="county" style="border: 1px solid black" value="{{county}}"></div>
+        <div>Address: <input type="text" name="address" style="border: 1px solid black" value="{{address}}"></div>
+        <div>DOB: <input type="text" name="dob" style="border: 1px solid black" value="{{dob}}"> <i>Format: 1900-07-30</i></div>
+        <div><input type="submit" value="Get Voters"></div>
+      </form>
+      <br />
+      <form action="/signed" method="post">
+      {% if sig %}
+        {% if dup %}
+        <p>Signature has already been recorded for {{ name }}, nothing saved.</p>
+        {% elif name %}
+        <p>Added a signer entry for {{ name }}.</p>
+        {% else %}
+        <p>No voter was selected, nothing saved.</p>
+        {% endif %}
+      {% endif %}
+      {% if invalid %}
+        {% if no_name %}
+        <p>No name supplied, cannot add invalid signature.</p>
+        {% elif dup %}
+        <p>Invalid signature has already been recorded for {{ inv_fname }} {{ inv_lname }}, nothing saved.</p>
+        {% else %}
+        <p>Added an invalid signature entry for {{ inv_fname }} {{ inv_lname }}.</p>
+        {% endif %}
+      {% endif %}
+      <table style="border: 1px solid black" width="75%">
+        <tbody>
+          {% for voter in voterlist %}
+          <tr>
+            <th style="background-color: #64B5F6; margin: 5px">Name</th>
+            <th style="background-color: #64B5F6; margin: 5px">Address</th>
+            <th style="background-color: #64B5F6; margin: 5px">City</th>
+            <th style="background-color: #64B5F6; margin: 5px">County</th>
+	    <th style="background-color: #64B5F6; margin: 5px; width=10%;">Signed?</th>
+          </tr>
+          {% break %}
+          {% endfor %}
+          {% for voter in voterlist %}
+             <tr>
+               <td>{{ voter['name'] }}</td>
+               <td>{{ voter['address'] }}</td>
+               <td>{{ voter['city'] }}</td>
+               <td>{{ voter['county'] }}</td>
+	       <td style="text-align: center;"><input type="radio" name="signed" value="{{ voter['statevoterid'] }}"></td>
+             </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% for voter in voterlist %}
+        <div><input type="submit" value="Add Signer"></div>
+        {% break %}
+      {% endfor %}
+      {% if (results) and (fname!='') and (lname!='') %}
+        </form>
+        </br>
+        <form action="/invalid" method="post">
+          <input type="hidden" name="fname" value="{{fname}}" />
+          <input type="hidden" name="lname" value="{{lname}}" />
+          <input type="hidden" name="city" value="{{city}}" />
+          <input type="hidden" name="county" value="{{county}}" />
+          <p>No match can be found? Add an invalid signature for {{fname}} {{lname}}{%if city!='' and county!=''%} from {{city}}, {{county}} county:{%elif city!=''%} from {{city}}:{%elif county!=''%} from {{county}} county:{%else%}:{%endif%} <input type="submit" value="Invalid Signature"></p>
+        {%endif%}
+    </form>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+    <title>I-732 Signature Checker</title>
+  </head>
+  <body>
+      <table style="border: 1px solid black" width="90%">
+        <tbody>
+          {% for sig in siglist %}
+          <tr>
+            <th style="background-color: #64B5F6; margin: 5px">Name</th>
+            <th style="background-color: #64B5F6; margin: 5px">Address</th>
+            <th style="background-color: #64B5F6; margin: 5px">City</th>
+            <th style="background-color: #64B5F6; margin: 5px">County</th>
+	    <th style="background-color: #64B5F6; margin: 5px;">Valid Voter?</th>
+          </tr>
+          {% break %}
+          {% endfor %}
+          {% for sig in siglist %}
+             <tr>
+               <td>{{ sig['name'] }}</td>
+               <td>{{ sig['address'] }}</td>
+               <td>{{ sig['city'] }}</td>
+               <td>{{ sig['county'] }}</td>
+	       <td>{% if sig['signed']==1 %}true{% else %}false{% endif %}</td>
+             </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+  </body>
+</html>

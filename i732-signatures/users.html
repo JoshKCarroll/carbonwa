@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+    <title>I-732 Signature Checker</title>
+  </head>
+  <body>
+    <body>
+      <p><strong>Enter User Email Address to Add to User List:</strong> </p>
+</ br><form action="/adduser" method="post">
+        <div>Email Address: <input type="text" name="email" style="border: 1px solid black"></div>
+        <div><input type="submit" value="Add User"></div>
+      </form>
+      {% if emailtoadd %}
+      <p>Added entry for user {{emailtoadd}}.</p>
+      {% endif %}
+  </body>
+</html>

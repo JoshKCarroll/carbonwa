@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+    <title>I-732 Signature Checker</title>
+  </head>
+  <body>
+      <strong>I-732 Signature Checker - Instructions</strong>
+<p>This tool supports lookups on registered voter records to determine whether signatures are valid.
+</p>
+<p>The following sets of fields are evaluated in order if they are not left blank. The first set found with any matches is returned, later sets are not checked.</p>
+<ul>
+<li>First Name, Last Name, City <i>(also checks against middle name)</i></li>
+<li>First Name, Last Name, County <i>(also checks against middle name)</i></li>
+<li>First Name and Last Name, or Last Name and City</li>
+<li>Last Name and County</li>
+</ul>
+<p>For partial matching, add a % before or after (or in between) letters. E.g. entering First Name: <i>dav%</i> would match Dave, David, or Davis. For commonly shortened names this is recommended.</p>
+<p>There are radio buttons in the list of returned results and another button to add the selected voter as a signer. This links the signature you were looking up with that voter record in our I-732 database. This will be used for central tracking and reporting on signatures by CarbonWA.</p>
+<p>If no match can be found for a particular signature, make sure and enter at least the first name and last name (as best you can tell), generate results, and then click the button at the bottom to add an invalid signature record for tracking.</p>
+<p>Note that this application will log your email address when you add matched or invalid signatures. This is purely for reference in case of accidental entries or calculating trends of invalid signatures. We will not use it from the signature database for any other purpose.</p>
+  </body>
+</html>
